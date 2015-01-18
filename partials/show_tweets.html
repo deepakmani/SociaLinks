@@ -1,0 +1,109 @@
+<section id="SearchTwitter">
+	
+	<div id="create_twitter_search_query" class="row-fluid">
+		<div class="col-sm-3" style="padding-left:0px;margin-left:0px">				
+  			<div class="navbar navbar-default sidebar-nav" role="navigation">
+    			<div class="navbar-header">
+    			 	 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
+       				 	<span class="sr-only">Toggle navigation</span>
+        				<span class="icon-bar"></span>
+       					<span class="icon-bar"></span>
+        				<span class="icon-bar"></span>
+      				</button>
+			    </div> <!-- navbar-header -->
+    			<div class="navbar-collapse collapse sidebar-navbar-collapse">
+		  			<ul class="nav navbar-nav">
+						<li>
+							<h4 style="width 100%"> Search Tweets </h4> </li>
+						<li> 
+					</ul> <!-- ul nav-navbar -->
+
+				</div> <!-- sidebar-navbar-collapse -->
+			</div> <!-- sidebar-nav -->
+			<div id="new_twitter_search_query" style= "margin-left: 30px;">
+				<table>
+					<tbody>
+						<div id="create_twitter_search_query_status_flash" style="display:none"> </div>
+						   
+						 <tr>
+					       	 <td> Query:  </td>
+			        		 <td> <input style="width:200px" type="text" name="search" data-ng-model="new_twitter_search_query"> </td>
+			       		 </tr>
+							
+						
+							<tr>
+								<td> Exclude: </td>
+						 	</tr>	
+							<tr> 
+					
+					</tbody>
+				</table>
+
+				<br/>
+				<div class="btn btn-primary" data-ng-click="searchTwitter()"> Search </div>
+			</div> <!-- new_twitter_search_query --> 
+		</div> <!-- Col-sm-3 -->
+	</div> <!-- Row-Fluid -->
+
+	<div id="show_tweets">
+
+		<div class="row-fluid" id="content">
+	  		<div class="col-sm-8">
+	  			<br/>
+   				<input id="step_commit" type=text style="display:none">
+				<div id="send_tweets_flash">
+				</div>
+													
+				<div id="progressbar_container">  
+
+							
+				</div>
+				<table style="background:#f2f2f2;height:50px"> 
+					<tbody>
+						<tr>		      	
+							<td style="padding-left:20px;text-align:center">
+								<%= check_box_tag "check_all", "all", false, :id =>"check_all", :style=>"width:15px" %>  
+							</td>
+			 				<td style="padding-left:30px">
+			 				 <%= select_tag 'tweet_template_id', options_for_select(["Nemam Amma Bhagavan Sharanam"]), {:prompt => "Select Tweet Template",\
+							 :class => "form-control col-lg-8", :style=>"width:auto"} %>			
+						 	 </td>
+							<td>
+								<%= hidden_field_tag 'twitter_filter_id', 1 %>
+							</td>
+						
+							<td style="padding-left:30px">
+
+								 <%= select_tag 'tweet_action', options_for_select(["Send Tweet Reply", "Send Tweet","Follow", "Send Direct Message"]), {:prompt => "Select Action", :class => "form-control col-lg-8", :style=>"width:auto"} %>		
+
+							</td>
+							<td style="padding-left:30px">
+								<%= submit_tag 'Submit', :class => "btn btn-primary", :id=>"sendTweetButton", :style => "width:90%; padding-right:15px" %>
+							</td>
+							<td style="padding-left:30px">
+								<button type="submit" class="btn btn-danger" id="delete_twitter_filter" style="color:#FAFAFA;">
+								 		<i class="fa fa-trash-o" style="font-size:18px"> </i>
+								 	</button>
+							</td>
+							<td style="padding-left:30px">
+								<button type="submit" class="btn btn-blue" id="label_sent_tweet" style="color:#FAFAFA;">
+								 		<i class="fa fa-file-o" style="font-size:18px"> </i>
+								 	</button>
+							</td>
+
+		                    <td id="icon" class="delete"style="cursor:pointer;width:100%"> 
+								
+							</td>
+					 	</tr>
+					</tbody>
+				</table>	
+			</div> <!-- col sm 8 -->
+		</div> <!-- Row-fluid -->
+	</div>
+
+
+</section>
+
+
+
+

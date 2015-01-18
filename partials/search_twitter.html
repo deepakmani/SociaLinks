@@ -1,0 +1,165 @@
+<section id="SearchTwitter" ng-cloak>
+	
+	<div id="create_twitter_search_query" class="row-fluid">
+		<div class="col-sm-4" style="padding-left:0px;margin-left:0px; width:30%">	
+			<br/>			
+  			<div class="navbar navbar-default sidebar-nav" role="navigation" style="margin-left: 20px">
+    			
+    			<div class="navbar-collapse collapse sidebar-navbar-collapse">
+		  			<ul class="nav navbar-nav" style="margin-left:50px; margin-bottom:0px">
+						<li>
+							<h4 style="width 100%"> Search Tweets </h4> </li>
+						<li> 
+					</ul> <!-- ul nav-navbar -->
+					<br/>
+				</div>	
+				<div ng-show="search_query_exists">
+					<table id="search_query_list">
+						<tbody>
+							<tr>
+								<td>
+									<select ng-model="search_query_select" ng-change="selectQuery(search_query_select)" class="form-control col-lg-12" ng-options="search_query.query for search_query in search_query_list" style="margin-left:20px;"></select>
+								</td>
+								<td>
+									<div ng-click="deleteSearchQuery()" class="btn btn-danger" style="margin-left:40px;" id="delete_search_query">
+										<i class="fa fa-trash-o" style="font-size:18px"> </i>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+				</div> <!-- Search Query Exists -->
+
+				<div ng-hide="search_query_exists"> </div>
+			
+				<div id="new_twitter_search_query">
+					<table>
+						<tbody>
+							<div id="create_twitter_search_query_status_flash" style="display:none"> </div>
+							   
+							 <tr>
+						       	 <td> Query:  </td>
+				        		 <td> <input placeholder="Enter a Search Term" style="width:90%" class="form-control" type="text" name="search" data-ng-model="new_twitter_search_query"> </td>
+				       		 </tr>
+				      
+							<tr>
+								<td> Exclude: </td>
+								<td> 
+									<input placeholder="Enter a keyword to exclude" data-ng-model="excludeKeyword" style="width:90%" class="form-control" type="text" name="exclude_keyword" > 
+								</td>
+								<td> 
+									<div class="btn btn-primary" data-ng-click="addExcludeKeyword($event)">
+								 		<i class="fa fa-plus" style="font-size:14px"> </i>
+								 	</div>				
+								</td>
+
+						 	</tr>	
+							</tbody>
+						</table>
+					
+						<div class="btn btn-primary" style="margin-left:40%" data-ng-click="searchTwitter()"> Search </div>
+						
+					
+						<div id="ExcludeItems" style="margin-left:50px; margin-top:20px">
+
+							<ul id="ExcludeKeywords">
+					
+								 <li ng-repeat="excludeKeyword in excludeKeywords">
+								    {{ excludeKeyword }}
+								 	<sup style="cursor:pointer" class="remove_exclude_keyword" data-ng-click="removeExcludeKeyword(excludeKeyword)"> X </sup>
+								 	<br/> 
+								 </li>				
+							</ul>
+						</div>	
+
+					<br/>
+				
+				</div> <!-- new_twitter_search_query --> 
+			</div> <!-- sidebar-nav -->
+		</div> <!-- Col-sm-3 -->
+	</div> <!-- Row-Fluid -->
+
+	
+	<div id="show_tweets">
+		<div class="row-fluid" id="content">
+	  		<div class="col-sm-8">
+                <br/>
+	  			<div ng-show="loading_tweets">
+	  				Loading Tweets
+	  			</div>
+	  			<div ng-hide="loading_tweets">
+
+					<div ng-hide="search_query_exists" id="show_info" >  <!-- If search_query exists == false -->
+						1. Signin to Twitter <br/>
+						
+						2. Enter a search query <br/>
+						
+						3. Setup auto-search and other options  <br/>
+						
+						4. View and reply to tweets <br/>
+
+						For more info view the video on the Chrome Web Store <br/>
+					</div> <!-- ng-hide search_query_exists-->
+
+					<div ng-show="search_query_exists" ng-cloak>
+						<div ng-hide="tweets_present" data-ng-model="search_query_select">
+							<h3> No Tweets Found for {{ search_query_select.query}} </h3>
+						</div>
+						<div ng-show="tweets_present">
+		  			
+					
+						<table style="background:#f2f2f2;height:50px"> 
+							<tbody>			
+								<tr>
+									<td style="padding-left:30px">
+										<button type="submit" class="btn btn-danger" id="delete_twitter_filter" style="color:#FAFAFA;">
+										 		<i class="fa fa-trash-o" style="font-size:18px"> </i>
+										 	</button>
+									</td>
+									<td style="padding-left:30px">
+										<button type="submit" class="btn btn-blue" id="label_sent_tweet" style="color:#FAFAFA;">
+										 		<i class="fa fa-file-o" style="font-size:18px"> </i>
+										 	</button>
+									</td>
+
+				                    <td id="icon" class="delete"style="cursor:pointer;width:100%"> 
+										
+									</td>
+							 	</tr>
+							</tbody>
+						</table>	
+
+						<table id="tweets_table">
+							<tbody>
+								<tr data-ng-repeat-start="tweet in tweets" style="border:3px solid #f2f2f2;border-bottom:none; padding-bottom:10px;margin-left:10px;">
+									<td style="padding-top:25px; padding-left:100px; padding-bottom:20px"> <img src= {{tweet.profile_image_url}} > </img>
+									 	<span style="font-size:1.3em;color:#912C00;padding-left:20px">{{ tweet.user_name }} </span>
+									 	<br/>
+									 	<span style="padding-left: 74px"> @{{ tweet.user_screen_name }} </span>
+									</td> 
+									<td>
+											<span style="float:right;margin-right:80px;margin-top:10px" class="LinkedInBtn"> Lookup Linkedin  </span>
+											<br/>
+											<br/>
+											<br/>
+											<span style="float:right;margin-right:63px"> {{ tweet.created_at * 1000 | date:'MM-dd-yy HH:mm:ss' }} </span>
+									</td>
+								</tr>
+								<tr data-ng-repeat-end style="border:3px solid #f2f2f2; border-top:none; padding-bottom:10px">
+									<td style="padding-left: 50px; padding-bottom: 15px"> <a  target="_blank" id="tweet_link" href="https://twitter.com/{{tweet.user_screen_name}}/status/{{tweet.status_id}}">  {{ tweet.text }} </a> </td>
+									<td> </td>
+								</tr>
+
+							</tbody>
+						</table>
+					</div> <!-- ng-show -->
+				</div>
+			</div> <!-- col sm 8 -->
+		</div> <!-- Row-fluid -->
+	</div> <!-- Show_tweets -->
+</section>
+
+
+
+

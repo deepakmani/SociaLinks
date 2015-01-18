@@ -1,0 +1,176 @@
+<!doctype html5>
+<html data-ng-app="sociaLinks">
+  <head>
+   	
+		<title> SociaLinks </title> 
+		<script src="jquery-2.1.1.min.js"></script>
+		<script src="moment.min.js"></script>
+		<script src="bundle.js"></script>
+
+		<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+		<script type="text/javascript" src="bower_components/angular-route/angular-route.min.js"></script>
+		<script type="text/javascript" src="bower_components/jquery-ui/ui/jquery-ui.js"></script>
+		<script type="text/javascript" src="bower_components/angular-ui-calendar/src/calendar.js"></script>
+		<script type="text/javascript" src="bower_components/fullcalendar/fullcalendar.js"></script>
+		<script type="text/javascript" src="bower_components/fullcalendar/gcal.js"></script>
+
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bower_components/fullcalendar/fullcalendar.css">
+		<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+
+		<script src="options.js"></script>
+
+		<style>
+			@font-face {
+			    font-family: 'fontawesome';
+			    src: url('bower_components/font-awesome/fonts/fontawesome-webfont.eot');
+			    src: url('/bower_components/font-awesome/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+			         url('bower_components/font-awesome/fonts/fontawesome-webfont.woff') format('woff'),
+			         url('bower_components/font-awesome/fonts/fontawesome-webfont.ttf') format('truetype'),
+			         url('bower_components/font-awesome/fonts/fontawesome-webfont.svg#fontawesome') format('svg');
+			    font-weight: normal;
+			    font-style: normal;
+
+				}
+			  .navbar-nav li {
+				   float: none;
+				   display: inline-block;
+				   cursor:pointer;
+				   font-size: 18px;	
+				   font-weight: 500;
+				   font-family:	'fontawesome', 'Helvetica';
+				   padding: 15px ;
+				   //width: 270px;
+				 }
+				 .navbar-nav li:hover{
+				 	background:#AAFFAA;
+				 }
+				  .navbar-nav li.active{
+				 	background:#FFF9F9;
+				 }
+				 .navbar li img {
+				 	height:	30px;
+				 	width:	30px
+				 }
+				 .navbar li a {
+				    padding-top: 12px;
+				    padding-bottom: 12px;
+
+				  }
+				  #new_twitter_search_query table  {
+				   //	background: #FEADAA;
+				  }
+				  #new_twitter_search_query table tr td {
+				  	padding: 10px;
+				  }
+				  #tweets_table td {
+				  	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+				  	font-size:	15px;
+				  }
+				  .LinkedInBtn {
+				  	background-color: #d14836;
+					background-image: -webkit-linear-gradient(top, #dd4b39, #d14836);
+					background-image: linear-gradient(top, #dd4b39, #d14836);
+					font-family: Helvetica, sans-serif;
+					color: #fff;
+					border: 1px solid transparent;
+					border: 1px solid transparent;
+					-webkit-border-radius: 2px;
+					border-radius: 2px;
+					cursor: pointer;
+					font-size: 12px;
+					font-weight: bold;
+					text-align: center;
+					white-space: nowrap;
+					margin-right: 16px;
+					height: 27px;
+					line-height: 27px;
+					min-width: 54px;
+					outline: 0;
+					padding: 0 8px
+				  }
+				  #show_info
+				  {
+				  	background:	#FFFFE9;
+				  	border:		2px solid #FFFFD1; 
+				  	color:		#555;
+				  	padding:	15px;
+				  	font-size: 	17px;
+				  }
+
+				#ExcludeItems
+				{
+				    display: 	table;
+
+				}
+				#ExcludeKeywords
+				{
+			      overflow-y: 	scroll;
+			      overflow-x: 	hidden;
+			      max-height: 	300px;
+			      width: 		240px;
+				}
+				#ExcludeKeywords li 
+				{
+			      	// display:	inline-block;
+			      	list-style: none;
+			     	padding: 	4px;
+			      	margin: 	4px;
+			     	color: 		#D33;
+			      	background: #fff;
+			    }
+			    sup 
+			    {
+			    	line-height:-0.85;
+			    }
+		
+			    #tweet_link {
+			    	text-decoration: none;
+			    	color: #333;
+			    }
+				/* 
+				  Allow angular.js to be loaded in body, hiding cloaked elements until 
+				  templates compile.  The !important is important given that there may be 
+				  other selectors that are more specific or come later and might alter display.  
+				 */
+				[ng\:cloak], [ng-cloak], .ng-cloak {
+				  display: none !important;
+				}
+		</style>
+</head>
+
+<br/>
+<nav class="navbar navbar-default"  role="navigation">
+  	<div class="container-fluid">
+    	<!-- Brand and toggle get grouped for better mobile display -->
+    	<div class="navbar-header">
+     		 <a class="navbar-brand" style="width:250px; padding-top:12px;" href="#" >
+				<img src="images/lance_mate_new.png" style="height:35px;width:35px;">	SociaLinks
+      		</a>
+      	 	<ul class="nav navbar-nav">
+	       		 <li>
+	        		<span>
+	        			<img style="" src="images/search.png"/> 
+						Search Twitter 
+						<span class="badge" id="job_count_badge"> </span>
+					</span>
+				</li>
+	     	    <li>
+	     	   		<img style="" src="images/twitter.png"/> Tweet Center
+	      		</li>
+	       		<li>
+	        		<img style="" src="images/calendar.png"/> Followups
+	       		</li>
+	       		<li style="margin-left:100px;">
+	        		<img style="" src="images/twitter.png"/> Signin
+	       		</li>
+	       		<li id="show_tutorial">	       	 
+	       			<img src="/images/lance_mate_new.png" style="height:28.5px;width:30px;">  Info 
+	       	    </li>
+		 	</ul> <!-- nav -->				
+   		</div> <!--navbar-header-->
+  	</div> <!-- container fluid -->
+</nav> <!-- Nav -->
+<div data-ng-view id="main-content"> </div> <!-- placeholder for angular routing -->
